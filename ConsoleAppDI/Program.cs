@@ -14,7 +14,7 @@ namespace QLSVConsole
                 .AddSingleton<ITeacherService, TeacherService>()
                 .AddSingleton<IClassService, ClassService>()
                 .AddSingleton<IStudentService, StudentService>()
-                .AddSingleton<StudentController>()
+                .AddTransient<StudentController>()
                 .BuildServiceProvider();
 
             var studentController = serviceProvider.GetService<StudentController>()!;
