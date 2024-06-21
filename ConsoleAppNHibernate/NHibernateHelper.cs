@@ -11,23 +11,26 @@ using System.Threading.Tasks;
 
 namespace ConsoleAppNHibernate
 {
-    public class NHibernateHelper
+    public static class NHibernateHelper
     {
-        public static ISession OpenSession()
+        private static ISessionFactory _sessionFactory;
+
+        static NHibernateHelper()
         {
             string connectionString = "Data Source=.;Initial Catalog=qlsv;Integrated Security=True;TrustServerCertificate=True";
-            var sessionFactory = Fluently.Configure()
-                    .Database(MsSqlConfiguration
-                        .MsSql2012
-                        .ConnectionString(connectionString))
-                    .Mappings(m => m.FluentMappings
-                        .AddFromAssemblyOf<TeacherEntityMap>()
-                        .AddFromAssemblyOf<ClassEntityMap>()
-                        .AddFromAssemblyOf<StudentEntityMap>())
-                    .BuildSessionFactory();
 
-            return sessionFactory.OpenSession();
+            _sessionFactory = Fluently.Configure()
+                .Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionString))
+                .Mappings(m => m.FluentMappings
+                    .AddFromAssemblyOf<TeacherEntityMap>()
+                    .AddFromAssemblyOf<ClassEntityMap>()
+                    .AddFromAssemblyOf<StudentEntityMap>())
+                .BuildSessionFactory();
+        }
+
+        public static ISession OpenSession()
+        {
+            return _sessionFactory.OpenSession();
         }
     }
-
 }
