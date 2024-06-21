@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace ConsoleAppNHibernate
 {
-    public static class NHibernateHelper
+    public class NHibernateHelper
     {
         public static ISession OpenSession()
         {
-            string connectionString = "Data Source=DESKTOP-47ECO45;Initial Catalog=qlsv;Integrated Security=True;TrustServerCertificate=True";
+            string connectionString = "Data Source=.;Initial Catalog=qlsv;Integrated Security=True;TrustServerCertificate=True";
             var sessionFactory = Fluently.Configure()
                     .Database(MsSqlConfiguration
                         .MsSql2012
